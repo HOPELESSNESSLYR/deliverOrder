@@ -230,7 +230,7 @@ export default {
       pageNum: 1,
       pageSize: 10,
       // 用户表格数据
-      userList: [{"ZRETQYTY":"","deliverDate":"","SUMMENGE":"","ZCKGLY":"","LGFSB":"","UEBTO":"0","EBELN":"","EBELP":"","BEDAT":"","EINDT":"","MATNR":"","MAKTX":"","MENGE":"","remainDeliver":"","LIFNR":"","expectedQty":"","DELIVERYQUANTITY":"","ZCZ":"","ZZJTNUM":"","HSDAT":"","WEIGHT":"","CHARG":"","DATE1":"","DATE2":"","ZBISMT":"","PSTYP":"","PTEXT":"","EKGRP":"","ZGSBER":""}],
+      userList: [{"ZRETQYTY":"","deliverDate":"","SUMMENGE":"","ZCKGLY":"","LGFSB":"","UEBTO":"0","EBELN":"","EBELP":"","BEDAT":"","EINDT":"","MATNR":"","MAKTX":"","MENGE":"","remainDeliver":"","LIFNR":"","expectedQty":"","DELIVERYQUANTITY":"","ZCZ":"","ZZJTNUM":"","HSDAT":"","WEIGHT":"","CHARG":"","DATE1":"","DATE2":"","ZBISMT":"","ZWWLX":"","PSTYP":"","PTEXT":"","EKGRP":"","ZGSBER":""}],
       CHARG:"",
       serach:true,
       // 弹出层标题
@@ -387,7 +387,9 @@ export default {
       this.form.deliverId = this.userList[0].deliverId || this.ids
       this.form=this.userList[0];
   
-      console.log(JSON.stringify(this.form))
+      // console.log(JSON.stringify(this.form))
+
+      if(this.form['ZWWLX']=='电镀委外' && this.form['PSTYP']=='3'){
       //生成送货单号
       getOrderID().then(response=>{   
         console.log(response)
@@ -504,6 +506,7 @@ export default {
           this.$modal.msgSuccess("获取单号失败");
         }
       })
+      }
 
     },
     /** 查询用户列表 */
@@ -614,7 +617,7 @@ export default {
               // this.serach=false 
               this.loading = false;
               this.$modal.msgSuccess("暂无数据"); 
-              this.data.tableData.item = [{"deliverDate":"","SUMMENGE":"","ZCKGLY":"","LGFSB":"","UEBTO":"","WERKS":"","EBELN":"","EBELP":"","BEDAT":"","EINDT":"","MATNR":"","MAKTX":"","MENGE":"","remainDeliver":"","LIFNR":"","expectedQty":"","DELIVERYQUANTITY":"","ZCZ":"","ZZJTNUM":"","HSDAT":"","WEIGHT":"","CHARG":"","DATE1":"","DATE2":"","ZBISMT":"","PSTYP":"","PTEXT":"","EKGRP":"","ZGSBER":""}];
+              this.data.tableData.item = [{"deliverDate":"","SUMMENGE":"","ZCKGLY":"","LGFSB":"","UEBTO":"","WERKS":"","EBELN":"","EBELP":"","BEDAT":"","EINDT":"","MATNR":"","MAKTX":"","MENGE":"","remainDeliver":"","LIFNR":"","expectedQty":"","DELIVERYQUANTITY":"","ZCZ":"","ZZJTNUM":"","HSDAT":"","WEIGHT":"","CHARG":"","DATE1":"","DATE2":"","ZBISMT":"","ZWWLX":"","PSTYP":"","PTEXT":"","EKGRP":"","ZGSBER":""}];
       
               this.total = response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPP_018Response"].E_TOTALPAGE;
             }else{
@@ -787,7 +790,7 @@ export default {
               // this.serach=false 
               this.loading = false;
               this.$modal.msgSuccess("暂无数据");  
-              this.data.tableData.item = [{"ZRETQYTY":"","deliverDate":"","SUMMENGE":"","ZCKGLY":"","LGFSB":"","UEBTO":"0","WERKS":"","EBELN":"","EBELP":"","BEDAT":"","EINDT":"","MATNR":"","MAKTX":"","MENGE":"","remainDeliver":"","LIFNR":"","expectedQty":"","DELIVERYQUANTITY":"","ZCZ":"","ZZJTNUM":"","HSDAT":"","WEIGHT":"","CHARG":"","DATE1":"","DATE2":"","ZBISMT":"","PSTYP":"","PTEXT":"","EKGRP":"","ZGSBER":""}];
+              this.data.tableData.item = [{"ZRETQYTY":"","deliverDate":"","SUMMENGE":"","ZCKGLY":"","LGFSB":"","UEBTO":"0","WERKS":"","EBELN":"","EBELP":"","BEDAT":"","EINDT":"","MATNR":"","MAKTX":"","MENGE":"","remainDeliver":"","LIFNR":"","expectedQty":"","DELIVERYQUANTITY":"","ZCZ":"","ZZJTNUM":"","HSDAT":"","WEIGHT":"","CHARG":"","DATE1":"","DATE2":"","ZBISMT":"","ZWWLX":"","PSTYP":"","PTEXT":"","EKGRP":"","ZGSBER":""}];
               this.total = response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPP_018Response"].E_TOTALPAGE;
             }else{
               if(response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPP_018Response"]["O_TABLE"]["item"]!=null){
