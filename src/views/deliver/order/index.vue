@@ -1319,7 +1319,7 @@ export default {
       }     
       // console.log("this.orderList[index]"+JSON.stringify(this.orderList[index]))
       // console.log("this.ids"+this.ids)
-      var flag = "S"
+      
       if(this.orderList[index].sku.length>18){
         this.orderList[index].sku = this.orderList[index].sku.substring(0,18);
       }
@@ -1369,8 +1369,217 @@ export default {
 
         // 提交成功后打印
       if(response.RETURN_CODE=='1000'){
-        //传SAP
-        var arr={};
+        this.npPrint();
+        // //传SAP
+        // var arr={};
+        // arr['purchaseOrder'] = this.orderList[index].poNo;
+        // arr['thingOrder'] = this.orderList[index].sku;
+        // arr['supplier'] =  this.orderList[index].supplieId;
+        // arr['flag'] = flag;
+        // arr['orDate'] =  this.orderList[index].orderDate;
+        // arr['deDate'] = this.orderList[index].deliveryDate;
+        // getCharg(arr).then(response => {
+        //   var resp=response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPP_021Response"];
+        //   if(resp["O_TABLE"].item != undefined){ 
+        //   // 'charg' res["O_TABLE"]=> $result->O_CHARG, 'chargList' => $result->O_TABLE
+        //     if(resp["O_TABLE"].item.length>1){
+        //       this.CHARG = resp["O_TABLE"].item[0].CHARG
+        //       this.orderList[index].expectedArriveTime1= resp["O_TABLE"].item[0].ZYXRQ
+        //       this.orderList[this.index].expectedArriveTime1= resp["O_TABLE"].item[0].ZYXRQ
+        //     }else{
+        //       this.CHARG = resp["O_TABLE"].item.CHARG
+        //       this.orderList[index].expectedArriveTime1= resp["O_TABLE"].item.ZYXRQ
+        //       this.orderList[this.index].expectedArriveTime1= resp["O_TABLE"].item.ZYXRQ
+        //       console.log("this.CHARG"+this.CHARG)
+        //     }
+        //       this.orderList[index].CHARG = this.CHARG;
+        //       this.orderList[index].PRINTNO = this.orderList[index].deliveredQuantity * 2;
+        //       // console.log("JSON.stringify this.orderList[index]"+JSON.stringify(this.orderList[index]))
+        //       this.order_List[0].CHARG=this.orderList[index].CHARG;
+        //       this.order_List[0].sku=this.padSku(this.orderList[index].sku);
+        //       this.order_List[0].labelNumber = this.padSpace(this.orderList[index].labelNumber,16);
+        //       this.order_List[0].labelWeight = this.padSpace(this.orderList[index].labelWeight,16);
+        //       console.log("order_List"+JSON.stringify(this.order_List[0]))
+        //       //拼接二维码内容
+        //       var printData='*'+this.order_List[0].sku+this.order_List[0].CHARG+this.order_List[0].labelNumber+this.order_List[0].labelWeight + this.padSpace(' ',17) + '000'
+        //       console.log("printData:"+printData)
+        //       var data="data="+encodeURI(JSON.stringify(this.order_List[0]));
+        //       console.log("data:"+data)
+        //       // post到PHP后端data
+        //       savePrintData(data).then(res => {
+        //         console.log("res"+JSON.stringify(res))
+        //         // if(this.orderList[0].sku != res.data.match(/\*(\S*) /)[1]){
+        //         //   this.$alert("物料号不一致请重新选择")
+        //         //   return;
+        //         // }
+        //         this.open = true;
+        //         setTimeout(() => {
+        //           // res->this.orderList[0],deliveredQuantity:undifined->1
+        //           console.log("this.$refs.pform"+this.$refs.pform);
+        //           this.orderList[index].number1 = Number(this.orderList[index].deliveredQuantity)+1;
+        //           this.orderList[index].number2 = Number(this.orderList[index].deliveredQuantity)+2;
+
+        //           var printable = document.getElementById("printall");
+        //           printable.style = "display:block;top:2px;left: 5mm;color:#000000";
+        //           printable.style.zoom = 1.235;
+        //           console.log(" printable.style.zoom "+ printable.style.zoom );
+        //           //先清空
+        //           for(var i = printable.childNodes.length - 1; i >= 0; i--) {
+        //             printable.removeChild(printable.childNodes[i]);
+        //           }
+        //           var paixu = [];
+        //           for(var i=0;i<this.orderList[index].deliveredQuantity;i++){
+        //             printable[i] = document.getElementById('printMe');
+        //             //生成二维码
+        //             this.getQRCode(printData+" "+this.padZero(this.orderList[index].number1.toString(),4)+" "+this.orderList[index].supplieId)
+        //             document.getElementsByClassName("qrcode")[0].childNodes[0].src = this.src;
+        //             this.getQRCode2(printData+" "+this.padZero(this.orderList[index].number2.toString(),4)+" "+this.orderList[index].supplieId)
+        //             document.getElementsByClassName("qrcode")[1].childNodes[0].src = this.src2;
+
+        //             var jubuData = document.getElementById("printMe").innerHTML;
+        //             var jubu = document.createElement("section");
+        //             jubu.style = "margin-top: 2px;margin-bottom: 10px;margin-left: 3mm;";
+        //             jubu.innerHTML = jubuData;
+        //             paixu[i] = jubu;
+        //             printable.insertBefore(jubu,printable.childNodes[0]);
+        //             console.log(printable)
+        //             // this.orderList[index].number1 = this.orderList[index].number1+2
+        //             // this.orderList[index].number2 = this.orderList[index].number2+2
+        //           }
+        //           var len = paixu.length;
+        //           //倒过来遍历所有节点
+        //           for(var i=0;i<len;i++){
+        //             printable.appendChild(paixu[i]);//添加到需打印父元素
+        //             var fenye = document.createElement("div");
+        //             fenye.style = "page-break-after:always;";
+        //             if(i != len-1) {
+        //               printable.appendChild(fenye);
+        //             }
+        //           }
+        //           console.log("printall",document.getElementById("printall"))
+        //           setTimeout(function () {
+        //             print({
+        //               printable: 'printall',
+        //               type: 'html',
+        //               scanStyles: true,
+        //               targetStyles: ['*'],
+        //               // style: '#printBox{ display: block !important}', // 表格样式
+        //               // HonorMarginPadding: false,
+        //             })
+        //           },1000)
+        //           setTimeout(function () {
+        //             document.getElementById("printall").style = "display:none";
+        //           },2000)
+        //         }, 3000);
+
+        //       })
+        //     }else{
+        //       arr['flag'] = "C"
+        //       getCharg(arr).then(response => {
+        //         var respo=response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPP_021Response"];
+        //         console.log("C response:"+JSON.stringify(response))
+        //         console.log("C response.data.chargList:"+respo["O_CHARG"])
+        //         this.orderList[index].expectedArriveTime1= respo["O_DATE"]
+        //         this.orderList[this.index].expectedArriveTime1= respo["O_DATE"]
+        //         this.CHARG = respo["O_CHARG"];
+        //         this.orderList[index].CHARG = this.CHARG;
+        //         this.orderList[index].PRINTNO = this.orderList[index].deliveredQuantity * 2;
+                  
+        //         this.order_List[0].CHARG=this.orderList[index].CHARG;
+        //         this.order_List[0].sku=this.padSku(this.orderList[index].sku);
+        //         this.order_List[0].labelNumber = this.padSpace(this.orderList[index].labelNumber,16);
+        //         this.order_List[0].labelWeight = this.padSpace(this.orderList[index].labelWeight,16);
+        //         // var printData=this.order_List[0].sku+" "+this.order_List[0].CHARG+" "+this.order_List[0].labelWeight+" "+this.order_List[0].supplieId
+        //         var printData='*'+this.order_List[0].sku+this.order_List[0].CHARG+this.order_List[0].labelNumber+this.order_List[0].labelWeight + this.padSpace(' ',17)+ '000'
+        //         console.log("printData:"+printData)
+        //         var data="data="+encodeURI(JSON.stringify(this.order_List[0]));
+        //         console.log("data:"+data)
+        //         // var data="data="+encodeURI(JSON.stringify(this.orderList[index]));
+        //         savePrintData(data).then(res => {
+        //           // if(this.orderList[0].sku != res.data.match(/\*(\S*) /)[1]){
+        //           //   this.$alert("物料号不一致请重新选择")
+        //           //   return;
+        //           // }
+        //           this.open = true;
+        //           setTimeout(() => {
+        //             console.log(this.$refs.pform);
+        //             var printable = document.getElementById("printall");
+        //             printable.style = "display:block;top:2px;left: 3mm;color:#000000";
+        //             printable.style.zoom =1.235;
+        //             this.orderList[index].number1 = Number(this.orderList[index].deliveredQuantity)+1;
+        //             this.orderList[index].number2 = Number(this.orderList[index].deliveredQuantity)+2;
+
+        //             //先清空
+        //             for(var i = printable.childNodes.length - 1; i >= 0; i--) {
+        //               printable.removeChild(printable.childNodes[i]);
+        //             }
+        //             var paixu=[];
+                
+        //             for(var i=0;i<this.orderList[index].deliveredQuantity;i++){
+        //               printable[i] = document.getElementById('printMe');
+                     
+        //               this.getQRCode(printData+" "+this.padZero(this.orderList[index].number1.toString(),4)+" "+this.orderList[index].supplieId)
+        //               document.getElementsByClassName("qrcode")[0].childNodes[0].src = this.src;
+        //               this.getQRCode2(printData+" "+this.padZero(this.orderList[index].number2.toString(),4)+" "+this.orderList[index].supplieId)
+        //               document.getElementsByClassName("qrcode")[1].childNodes[0].src = this.src2;
+
+        //               var jubuData = document.getElementById("printMe").innerHTML;
+        //               var jubu = document.createElement("section");
+        //               jubu.style = "margin-top: 2px;margin-bottom: 10px;margin-left: 5mm;";
+        //               jubu.innerHTML = jubuData;
+        //               paixu[i] = jubu;
+        //               // printable.insertBefore(jubu,printable.childNodes[0]);
+        //               console.log(printable)
+        //               this.orderList[index].number1 = this.orderList[index].number1+2
+        //               this.orderList[index].number2 = this.orderList[index].number2+2
+        //             }
+        //             var len = paixu.length;
+        //             //倒过来遍历所有节点
+        //             for(var i=0;i<len;i++){
+        //               printable.appendChild(paixu[i]);//添加到需打印父元素
+        //               var fenye = document.createElement("div");
+        //               fenye.style = "page-break-after:always;";
+        //               if(i != len-1) {
+        //                 printable.appendChild(fenye);
+        //               }
+        //             }
+        //             console.log("printall",document.getElementById("printall"))
+        //             setTimeout(function () {
+        //               print({
+        //                 printable: 'printall',
+        //                 type: 'html',
+        //                 scanStyles: true,
+        //                 targetStyles: ['*'],
+                        
+        //                 // style: '#printBox{ display: block !important}', // 表格样式
+        //                 // HonorMarginPadding: false,
+        //               })
+        //             },1000)
+        //             setTimeout(function () {
+        //               document.getElementById("printall").style = "display:none";
+        //             },2000)
+        //           }, 3000);
+
+        //         })
+        //       })
+        //     }
+        // })
+      }else{
+        alert("wms提交失败请重试-"+response.RETURN_DESC) 
+      }
+      }).catch(error=>{
+        console.log(error)    
+      })
+      }else{
+        this.npPrint();
+      }
+    },
+    npPrint(){
+      this.index = this.orderList.findIndex(item => item.id == this.ids);
+      var index = this.orderList.findIndex(item => item.id == this.ids);
+      var flag = "S"
+      //传SAP
+      var arr={};
         arr['purchaseOrder'] = this.orderList[index].poNo;
         arr['thingOrder'] = this.orderList[index].sku;
         arr['supplier'] =  this.orderList[index].supplieId;
@@ -1563,13 +1772,6 @@ export default {
               })
             }
         })
-      }else{
-        alert("wms提交失败请重试-"+response.RETURN_DESC) 
-      }
-      }).catch(error=>{
-        console.log(error)    
-      })
-      }
     },
     //长打印
     longprint(){
@@ -1611,7 +1813,7 @@ export default {
         this.$alert("请填写打印份数")
         return;
       }
-      var flag = "S"
+
       if(this.orderList[index].sku.length>18){
         this.orderList[index].sku = this.orderList[index].sku.substring(0,18);
       }
@@ -1621,6 +1823,7 @@ export default {
       // if(this.orderList[index].specification.length>10){
       //   this.specification_print = this.orderList[index].specification.substring(0,10);
       // }
+      if(this.orderList[index].wmsPut=='1'){
       //提交到wms
       this.jsonData.asnNo = this.orderList[index].asnNo;
       this.jsonData.supplierId = this.orderList[index].supplieId;
@@ -1649,9 +1852,209 @@ export default {
       //代理地址wms
       addOrderWms(this.jsonData).then(response=>{
         //提交成功后打印
-      if(response.RETURN_CODE=='1000'){
-        //传SAP
-        var array={};
+        if(response.RETURN_CODE=='1000'){
+          this.lpPrint();
+          // //传SAP
+          // var array={};
+          // array['purchaseOrder'] = this.orderList[index].poNo;
+          // array['thingOrder'] = this.orderList[index].sku;
+          // array['supplier'] = this.orderList[index].supplieId;
+          // array['flag'] = flag;
+          // array['orDate'] =  this.orderList[index].orderDate;
+          // array['deDate'] = this.orderList[index].deliveryDate;
+          // getCharg(array).then(response => {
+          //   console.log("response"+JSON.stringify(response))
+          //   var ress=response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPP_021Response"];
+          //   if(ress["O_TABLE"].item != undefined){ 
+          //     if(ress["O_TABLE"].item.length>1){
+          //       this.CHARG = ress["O_TABLE"].item[0].CHARG
+          //       this.orderList[index].expectedArriveTime1= ress["O_TABLE"].item[0].ZYXRQ
+          //       this.orderList[this.index].expectedArriveTime1= ress["O_TABLE"].item[0].ZYXRQ
+          //     }else{
+          //       this.CHARG = ress["O_TABLE"].item.CHARG
+          //       console.log("this.CHARG"+this.CHARG)
+          //       this.orderList[index].expectedArriveTime1= ress["O_TABLE"].item.ZYXRQ
+          //       this.orderList[this.index].expectedArriveTime1= ress["O_TABLE"].item.ZYXRQ
+          //     }
+          //     this.orderList[index].CHARG = this.CHARG;
+          //     this.orderList[index].PRINTNO = this.orderList[index].deliveredQuantity * 2;
+          //     console.log("JSON.stringify this.orderList[index]"+JSON.stringify(this.orderList[index]))
+
+          //     this.order_List[0].CHARG=this.orderList[index].CHARG;
+          //     this.order_List[0].sku=this.padSku(this.orderList[index].sku);
+          //     this.order_List[0].labelNumber = this.padSpace(this.orderList[index].labelNumber,16);
+          //     this.order_List[0].labelWeight = this.padSpace(this.orderList[index].labelWeight,16);
+          //     console.log("order_List"+JSON.stringify(this.order_List[0]))
+          //     // var printData=this.order_List[0].sku+" "+this.order_List[0].CHARG+" "+this.order_List[0].labelWeight+" "+this.order_List[0].supplieId
+          //     var printData='*'+this.order_List[0].sku+this.order_List[0].CHARG+this.order_List[0].labelNumber+this.order_List[0].labelWeight + this.padSpace(' ',17)+ '000'
+
+          //     var data="data="+encodeURI(JSON.stringify(this.order_List[0]));
+          //     console.log("printData:"+printData)
+          //     // post到PHP后端data
+          //     savePrintData(data).then(res => {
+          //       // if(this.orderList[0].sku != res.data.match(/\*(\S*) /)[1]){
+          //       //   this.$alert("物料号不一致请重新选择")
+          //       //   return;
+          //       // }
+          //       this.open2 = true;
+          //       setTimeout(() => {
+          //         console.log("this.$refs.pform2"+this.$refs.pform2);       
+          //         var printable = document.getElementById("printall2");
+          //         printable.style = "display:block;margin-top:3mm;margin-left: 3mm;color:#000000";
+          //         printable.style.zoom = 0.99;
+          //         this.orderList[index].number3 = Number(this.orderList[index].deliveredQuantity)+1;
+          //         console.log(" printable.style.zoom "+ printable.style.zoom );
+          //         //先清空
+          //         for(var i = printable.childNodes.length - 1; i >= 0; i--) {
+          //           printable.removeChild(printable.childNodes[i]);
+          //         }
+          //         var paixu = [];
+          //           //const that = this;
+          //           for (var i = 0; i < this.orderList[index].deliveredQuantity; i++) {
+          //             printable[i] = document.getElementById('printMe2');
+
+          //             this.getQRCode3(printData+" "+this.padZero(this.orderList[index].number3.toString(),4)+" "+this.orderList[index].supplieId)
+          //             document.getElementsByClassName("qrcode-long")[0].childNodes[0].src = this.src3;
+        
+          //             this.orderList[index].number3 += 1;
+  
+          //             // jubu.innerHTML = jubuData.innerHTML;
+          //             var jubuData = document.getElementById("printMe2").innerHTML;
+          //             var jubu = document.createElement("section");
+          //             jubu.style = "margin-top:3mm;margin-left: 3mm;color:#000000";
+          //             jubu.innerHTML = jubuData;
+          //             paixu[i] = jubu;
+          //             printable.insertBefore(jubu,printable.childNodes[0]);
+          //             console.log(printable)
+          //           }
+          //         var len = paixu.length;
+          //         //倒过来遍历所有节点
+          //         for(var i=0;i<len;i++){
+          //           printable.appendChild(paixu[i]);//添加到ul为子元素
+          //           var fenye = document.createElement("div");
+          //           fenye.style = "page-break-after:always;";
+          //           if(i != len-1) {
+          //             printable.appendChild(fenye);
+          //           }
+          //         }
+          //         console.log("printall2",document.getElementById("printall2"));
+          //         setTimeout(function () {
+          //           print({
+          //             printable: 'printall2',
+          //             type: 'html',
+          //             scanStyles: true,
+          //             targetStyles: ['*'],
+          //             // style: '#printBox{ display: block !important}', // 表格样式
+          //             // HonorMarginPadding: false,
+          //           })
+          //         },1000)
+          //         setTimeout(function () {
+          //           document.getElementById("printall2").style = "display:none";
+          //         },2000)
+          //       }, 3000);
+          //     })
+          //   }else{
+          //     array['flag'] =  "C";
+          //     getCharg(array).then(response => {
+          //         var respo=response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPP_021Response"];
+          //         console.log("C response:"+JSON.stringify(response))
+          //         console.log("C response.data.chargList:"+respo["O_CHARG"])
+          //         this.CHARG = respo["O_CHARG"];
+          //         this.orderList[index].expectedArriveTime1=respo["O_DATE"]
+          //         this.orderList[this.index].expectedArriveTime1= respo["O_DATE"]
+          //         this.orderList[index].CHARG = this.CHARG;
+          //         this.orderList[index].PRINTNO = this.orderList[index].deliveredQuantity
+          //         // var data="data="+encodeURI(JSON.stringify(this.orderList[index]));
+          //         this.order_List[0].CHARG=this.orderList[index].CHARG;
+          //         this.order_List[0].sku=this.padSku(this.orderList[index].sku);
+          //       this.order_List[0].labelNumber = this.padSpace(this.orderList[index].labelNumber,16);
+          //       this.order_List[0].labelWeight = this.padSpace(this.orderList[index].labelWeight,16);
+          //         console.log("order_List"+JSON.stringify(this.order_List[0]))
+          //         // var printData=this.order_List[0].sku+" "+this.order_List[0].CHARG+" "+this.order_List[0].labelWeight+" "+this.order_List[0].supplieId
+          //         var printData='*'+this.order_List[0].sku+this.order_List[0].CHARG+this.order_List[0].labelNumber+this.order_List[0].labelWeight + this.padSpace(' ',17)+ '000'
+
+          //         var data="data="+encodeURI(JSON.stringify(this.order_List[0]));
+          //         console.log("data:"+data)
+          //         savePrintData(data).then(res => {
+          //           console.log(printData)
+          //           // if(this.orderList[0].sku != res.data.match(/\*(\S*) /)[1]){
+          //           //   this.$alert("物料号不一致请重新选择")
+          //           //   return;
+          //           // }
+          //           this.open2 = true;
+          //           setTimeout(() => {
+          //             console.log(this.$refs.pform2);
+          //             var printable = document.getElementById("printall2");
+          //             printable.style = "display:block;margin-top:3mm;margin-left: 3mm;color:#000000";
+          //             printable.style.zoom = 0.99;
+          //             this.orderList[index].number3 = Number(this.orderList[index].deliveredQuantity)+1;
+          //             //先清空
+          //             for(var i = printable.childNodes.length - 1; i >= 0; i--) {
+          //               printable.removeChild(printable.childNodes[i]);
+          //             }
+          //             console.log("printable",printable)
+          //             var paixu = [];
+
+          //           for(var i=0;i<this.orderList[index].deliveredQuantity;i++){
+          //             // printable[i] = document.getElementById('printMe2');
+          //             var jubuData = document.getElementById("printMe2");
+          //             console.log("",this.orderList[index].number3)
+
+          //             this.getQRCode3(printData+" "+this.padZero(this.orderList[index].number3.toString(),4)+" "+this.orderList[index].supplieId)
+          //             document.getElementsByClassName("qrcode-long")[0].childNodes[0].src = this.src3;
+
+          //             this.orderList[index].number3 += 1;
+          //             // console.log("jubuData"+i,jubuData.innerHTML);
+          //             var jubu = document.createElement("section");
+          //             jubu.style = "margin-top:3mm;margin-left: 3mm;color:#000000";
+          //             jubu.innerHTML = jubuData.innerHTML;
+          //             paixu[i] = jubu;
+          //             // printable.insertBefore(jubu,printable.childNodes[0]);
+          //           }
+          //             var len = paixu.length;
+          //             //倒过来遍历所有节点
+          //             for(var i=0;i<len;i++){
+          //               printable.appendChild(paixu[i]);//添加到ul为子元素
+          //               var fenye = document.createElement("div");
+          //               fenye.style = "page-break-after:always;";
+          //               if(i != len-1) {
+          //                 printable.appendChild(fenye);
+          //               }
+          //             }
+          //             setTimeout(function () {
+          //               print({
+          //                 printable: 'printall2',
+          //                 type: 'html',
+          //                 scanStyles: true,
+          //                 targetStyles: ['*'],
+          //                 // style: '#printBox{ display: block !important}', // 表格样式
+          //                 // HonorMarginPadding: false,
+          //               })
+          //             },1000)
+          //             setTimeout(function () {
+          //               document.getElementById("printall2").style = "display:none";
+          //             },2000)
+          //         }, 3000);
+          //       })
+          //     })
+          //   }
+          // })
+        }else{
+          alert("提交失败请重试"+response.RETURN_DESC) 
+        }
+        }).catch(error=>{
+          console.log(error)      
+        })
+      }else{
+        this.lpPrint();
+      }
+    },
+   lpPrint(){
+    this.index = this.orderList.findIndex(item => item.id == this.ids);
+    var index = this.orderList.findIndex(item => item.id == this.ids);
+    var flag = "S"
+    //传SAP
+    var array={};
         array['purchaseOrder'] = this.orderList[index].poNo;
         array['thingOrder'] = this.orderList[index].sku;
         array['supplier'] = this.orderList[index].supplieId;
@@ -1835,14 +2238,7 @@ export default {
             })
           }
         })
-      }else{
-        alert("提交失败请重试"+response.RETURN_DESC) 
-      }
-      }).catch(error=>{
-        console.log(error)      
-      })
-    },
-   
+   },
     /** 查询送货单列表 */
     getList() {
       this.tableEmptyText = '暂无数据';

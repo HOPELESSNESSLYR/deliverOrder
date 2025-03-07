@@ -99,6 +99,7 @@
             type="date"
             format="yyyy-MM-dd"
             value-format="yyyy-MM-dd" 
+            :picker-options="pickerOptions"
            >
           </el-date-picker>
         </template>
@@ -326,7 +327,17 @@ export default {
           { required: true, validator: equalToPassword, trigger: "blur" }
         ]
       },
-      wmsPut:null
+      wmsPut:null,
+      pickerOptions: {
+        disabledDate(time) {
+          const today = new Date();
+          const maxDate = new Date();
+          maxDate.setDate(today.getDate() + 3); // 当前日期后3天
+          const minDate = new Date();
+          minDate.setDate(today.getDate() - 7); // 当前日期前7天
+          return time.getTime() > maxDate || time.getTime() < minDate;
+        }
+      }
     };
   },
   created() {
