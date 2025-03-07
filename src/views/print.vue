@@ -326,6 +326,7 @@ export default {
           { required: true, validator: equalToPassword, trigger: "blur" }
         ]
       },
+      wmsPut:null
     };
   },
   created() {
@@ -388,8 +389,11 @@ export default {
       this.form=this.userList[0];
   
       // console.log(JSON.stringify(this.form))
-
       if(this.form['ZWWLX']=='电镀委外' && this.form['PSTYP']=='3'){
+        this.wmsPut='1'
+        console.log(this.wmsPut)
+      }
+ 
       //生成送货单号
       getOrderID().then(response=>{   
         console.log(response)
@@ -447,7 +451,8 @@ export default {
                   arr['manager'] = this.form['ZCKGLY'];
                   arr['remainDeliver'] = 0;
                   arr['addWho'] = Cookies.get("username");
-                  console.log( Cookies.get("username"))
+                  arr['wmsPut'] = this.wmsPut;
+                  console.log(this.wmsPut)
                   // 通过api接口发送请求到后端接口/deliver/order
                   adddOrder(arr).then(response => {
                     this.$modal.msgSuccess("新增成功");
@@ -492,6 +497,7 @@ export default {
               arr['manager'] = this.form['ZCKGLY'];
               arr['remainDeliver'] = 0;
               arr['addWho'] = Cookies.get("username");
+              arr['wmsPut'] = this.wmsPut;
                   console.log( Cookies.get("username"))
               // 通过api接口发送请求到后端接口/deliver/order
               addOrder(arr).then(response => {
@@ -506,7 +512,7 @@ export default {
           this.$modal.msgSuccess("获取单号失败");
         }
       })
-      }
+      
 
     },
     /** 查询用户列表 */

@@ -1084,7 +1084,8 @@ export default {
         index:null,
         expectedArriveTime1:null,
         cancelBill:null,
-        remainDeliver:0
+        remainDeliver:0,
+        wmsPut: null
       },
       // 表单参数
       form: {},
@@ -1330,6 +1331,7 @@ export default {
       //   this.specification_print = this.orderList[index].specification.substring(0,10);
       // }
       console.log(JSON.stringify(this.orderList[index]))
+      if(this.orderList[index].wmsPut=='1'){
       //提交到wms
       this.jsonData.asnNo = this.orderList[index].asnNo;
       this.jsonData.supplierId = this.orderList[index].supplieId;
@@ -1567,6 +1569,7 @@ export default {
       }).catch(error=>{
         console.log(error)    
       })
+      }
     },
     //长打印
     longprint(){
@@ -1989,7 +1992,8 @@ export default {
         specification:null,
         machine:null,
         cancelBill:null,
-        remainDeliver:0
+        remainDeliver:0,
+        wmsPut: null
       };
       this.resetForm("form");
     },
