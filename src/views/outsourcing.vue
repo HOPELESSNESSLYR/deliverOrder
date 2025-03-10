@@ -266,7 +266,7 @@
                 <div class="narrow">备注:</div>
               </div>
               <div class="item-text el-col el-col-8">
-                <div class="narrow"></div>
+                <div class="narrow">{{userList[0].LGORT}}</div>
               </div>
             </div>
             <div class="rohs" id="rohs">
@@ -384,7 +384,7 @@
                   <div class="narrow">备注:</div>
                 </div>
                 <div class="item-text el-col el-col-8">
-                  <div class="narrow"></div>
+                  <div class="narrow">{{userList[0].LGORT}}</div>
                 </div>
               </div>
               <div class="rohs">
@@ -1161,6 +1161,7 @@ export default {
           this.userList[i].LIFNR = Cookies.get("userid") * 1;
           this.userList[i].HSDAT = this.userList[i].BUDAT;
           this.userList[i].DATE2 = this.userList[i].QNDAT;
+          // this.userList[i].LGORT = this.userList[i].LGORT;
         }
           this.total = response["soap-env:Envelope"]["soap-env:Body"]["n0:ZPPF_029Response"].E_TOTALPAGE;
           this.loading = false;
