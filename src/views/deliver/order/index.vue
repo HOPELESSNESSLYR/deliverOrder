@@ -1330,8 +1330,8 @@ export default {
       // if(this.orderList[index].specification.length>10){
       //   this.specification_print = this.orderList[index].specification.substring(0,10);
       // }
-      console.log(JSON.stringify(this.orderList[index]))
-      if(this.orderList[index].wmsPut=='1'){
+      // console.log(JSON.stringify(this.orderList[index]))
+      if(this.orderList[index].wmsPut=='1' && this.orderList[index].factory=="3012"){
       //提交到wms
       this.jsonData.asnNo = this.orderList[index].asnNo;
       this.jsonData.supplierId = this.orderList[index].supplieId;

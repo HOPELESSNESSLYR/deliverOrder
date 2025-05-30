@@ -412,7 +412,8 @@ export default {
           this.$modal.msgSuccess("获取单号成功");
           this.asnNo = response; 
           getInfo().then(response=>{
-            if(response.roles=="purchase"){
+            console.log("this.form['ZGSBER']",this.form['ZGSBER'])
+            if(response.roles=="purchase" && this.form['WERKS']=="3012"){
               //提交到wms
               this.jsonData.asnNo = this.asnNo;
               console.log(this.asnNo)
